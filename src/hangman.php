@@ -6,7 +6,7 @@
         // private $incorrect_guesses;
         private $incorrect_guess_counter;
         private $blanks;
-        //add blank here
+        public $gameOver;
 
         function __construct($word, $incorrect_guess_counter, $blanks)
         {
@@ -15,6 +15,7 @@
             $this->incorrect_guess_counter = $incorrect_guess_counter;
             // $this->guessed_word = $guessed_word;
             $this->blanks = $blanks;
+            $this->gameOver = false;
         }
 
         function getWord()
@@ -61,18 +62,20 @@
             $index = strpos($this->word, $guess);
             if($index !== FALSE)
             {
-                for($i=0; $i<=strlen($this->word); $i++)
+                for($i=0; $i<=strlen($this->word)-1; $i++)
                 {
-                    if ($guess == $this->word[$i]){
+                    if ($guess == $this->word[$i])
+                    {
                         $this->blanks[$i*2] = $guess;
                     }
                 }
                 array_push($_SESSION["correct_guesses"], $guess);
-                return "correct";
+
+
             } else {
                 $this->incorrect_guess_counter++;
                 array_push($_SESSION["incorrect_guesses"], $guess);
-                return "WRONG";
+
             }
         }
 
@@ -80,6 +83,18 @@
         {
             if($this->incorrect_guess_counter >= 6)
             {
+                $this->gameOver=true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function hasWon()
+        {
+            $newBlank = $this->blanks;
+            if (str_replace(" ", "", $newBlank) == $this->word)
+            {
+                $this->gameOver = true;
                 return true;
             } else {
                 return false;

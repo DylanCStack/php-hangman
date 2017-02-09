@@ -4,11 +4,13 @@
     </head>
     <body>
     <h1>Play Hangman!</h1>
+    {%if not hangman.gameOver%}
     <form action="/guess" method="post">
         <label for="guess">Guess a letter</label>
         <input type="text" name="guess" id="guess">
         <button type="submit">Guess!</button>
     </form>
+    {%endif%}
     <h2>{{hangman.getBlanks}}</h2>
     <h2>{{hangman.getIncorrectCounter}}/6 incorrect guesses</h2>
     <h4>Correct guesses</h4>
@@ -19,8 +21,11 @@
     <p>{%if incorrect_guesses is not empty%}
         {{incorrect_guesses}}
         {%endif%}</p>
-        <h1 style="font-size:164px; text-align:center; color:red;">{%if hangman.hasLost%}
-            YOU LOSE!
+        <h1 style="font-size:70px; text-align:center; color:red;">{%if hangman.hasLost%}
+            YOU'RE A LOSER AND NO ONE LIKES YOU. YOU DESERVE THIS!
+            {%endif%}</h1>
+        <h1 style="font-size:70px; text-align:center; color:green;">{%if hangman.hasWon%}
+            YOU ARE VICTORIOUS AND EVERYONE THINKS YOU'RE COOL!
             {%endif%}</h1>
         <a href="/">Restart</a>
     </body>

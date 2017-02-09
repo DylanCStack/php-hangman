@@ -25,8 +25,7 @@
         }
         $hangman = new Hangman($word, 0 , $blanks);
         $_SESSION['hangman'] = $hangman;
-        var_dump($blanks);
-        var_dump($hangman->getBlanks());
+        
         return $app['twig']->render('hangman.html.twig', array("hangman" => $_SESSION['hangman'], "correct_guesses"=> Hangman::getAllCorrectString(),  "incorrect_guesses"=>Hangman::getAllIncorrectString()));
     });
 
