@@ -9,13 +9,15 @@
     $app["debug"] = true;
 
     session_start();
-    // if(empty($_SESSION["correct_guesses"]) && empty($_SESSION["incorrect_guesses"])){
-    //     $_SESSION["correct_guesses"] = array();
-    //     $_SESSION["incorrect_guesses"] = array();
-    //
-    // }
+
     $app->get("/",function() use ($app){
-        $word = strtoupper("hello");
+        $_SESSION["hangman"] = array();
+        return $app['twig']->render('hangman.html.twig', array("hangman" => $_SESSION['hangman'], "correct_guesses"=> Hangman::getAllCorrectString(),  "incorrect_guesses"=>Hangman::getAllIncorrectString()));
+    });
+
+
+    $app->post("/start",function() use ($app){
+        $word = strtoupper($_POST['word']);
         $blanks = "";
         $_SESSION["correct_guesses"] = array();
         $_SESSION["incorrect_guesses"] = array();
@@ -25,7 +27,7 @@
         }
         $hangman = new Hangman($word, 0 , $blanks);
         $_SESSION['hangman'] = $hangman;
-        
+
         return $app['twig']->render('hangman.html.twig', array("hangman" => $_SESSION['hangman'], "correct_guesses"=> Hangman::getAllCorrectString(),  "incorrect_guesses"=>Hangman::getAllIncorrectString()));
     });
 
