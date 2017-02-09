@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    <h1>Play Hangman!</h1>
+    <form action="/guess" method="post">
+        <label for="guess">Guess a letter</label>
+        <input type="text" name="guess" id="guess">
+        <button type="submit">Guess!</button>
+    </form>
+    <h2>{{hangman.getBlanks}}</h2>
+    <h2>{{hangman.getIncorrectCounter}}/6 incorrect guesses</h2>
+    <h4>Correct guesses</h4>
+    <p>{%if correct_guesses is not empty%}
+        {{correct_guesses}}
+        {%endif%}</p>
+    <h4>Incorrect guesses</h4>
+    <p>{%if incorrect_guesses is not empty%}
+        {{incorrect_guesses}}
+        {%endif%}</p>
+        <h1 style="font-size:164px; text-align:center; color:red;">{%if hangman.hasLost%}
+            YOU LOSE!
+            {%endif%}</h1>
+        <a href="/">Restart</a>
+    </body>
+</html>
