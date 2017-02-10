@@ -32,8 +32,11 @@
     });
 
     $app->post("/guess", function() use ($app){
+        if ($_SESSION["hangman"]->checkGuess($_POST['guess']) == false){
 
-        $_SESSION['hangman']->guess(strtoupper($_POST['guess']));
+            $_SESSION['hangman']->guess(strtoupper($_POST['guess']));
+        }
+
 
         return $app['twig']->render('hangman.html.twig', array("hangman" => $_SESSION['hangman'], "blank" => $_SESSION['hangman']->getBlanks(), "correct_guesses"=> Hangman::getAllCorrectString(),  "incorrect_guesses"=>Hangman::getAllIncorrectString()));
     });
