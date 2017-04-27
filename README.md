@@ -1,4 +1,4 @@
-# Tamagotchi
+# Hangman
 
 #### By Sarah Leahy & Dylan Stackhouse
 
